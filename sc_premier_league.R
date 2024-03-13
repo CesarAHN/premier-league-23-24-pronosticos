@@ -26,6 +26,13 @@ tab_pos$Last.6<-NULL
 tab_pos$X.<-NULL
 names(tab_pos)<-c("CLUB","J","G","E","P","GF","GC","DIF","PTS")
 
+tab_pos %>% as_tibble() %>% gt() %>%
+  gt_theme_espn() %>% tab_header(title = "TABLA DE POSICIONES PREMIER LEAGUE 2023 - 2024",
+                                 subtitle = paste0("Actualizado al ", Sys.Date())) %>% 
+         tab_source_note("ELABORACIÓN: https://github.com/CesarAHN") %>% 
+  gtsave(r"(C:\OTROS\premier-league-23-24-pronosticos\plots\tab_pos.png)")
+         
+
 #-------------
 # Calendario.
 #-------------
@@ -41,11 +48,10 @@ tab_calendario<-data.frame(LOCAL=fechas[seq(1,length(fechas),by=2)],
 
 # Temporal. 
 # falta el partido del Chelsea vs el Tottenham
-tab_calendario %>% bind_rows(data.frame(LOCAL="Chelsea",VISITANTE="Tottenham Hotspur"))->tab_calendario
 
-tab_pos %>% as_tibble() %>% gt() %>%
-  gt_theme_espn() %>% tab_header(title = "TABLA DE POSICIONES PREMIER LEAGUE",
-                                 subtitle = paste0("Actualizado al ", Sys.Date()))
+if (tab_calendario %>% filter(LOCAL=="Chelsea" & VISITANTE=="Tottenham Hotspur") %>% nrow()==0){
+  tab_calendario %>% bind_rows(data.frame(LOCAL="Chelsea",VISITANTE="Tottenham Hotspur"))->tab_calendario
+}
 
 #-------------------------------------------------------------------------------
 
@@ -66,17 +72,18 @@ tab_pos %>% as_tibble() %>% gt() %>%
 #------------------------
 # Puntaje de juego de local
 # De 1 al 10, donde 1 es que le va muy mal jugando de visita y 10 que le va muy bien.
-p_local<-tibble(CLUB=sort(tab_pos$CLUB), `PUNTAJE LOCAL`=c(9.7,8,4,4,6,3,7,5,5,5,9.7,3,9.8,7.5,6.5,4.5,2,7.5,6,5.5)/10)
+p_local<-tibble(CLUB=sort(tab_pos$CLUB), `PUNTAJE LOCAL`=c(9.6,8,4,4,6,3,7,5,5,5,9.5,3,9.8,7.5,6.5,4.5,2,7.5,6,5.5)/10)
 
 # Puntaje de juego de visita 
 # De 1 al 10, donde 1 es que le va muy mal jugando de local y 10 que le va muy bien.
-p_visita<-tibble(CLUB=sort(tab_pos$CLUB), `PUNTAJE VISITA`=c(9.3,7,3.5,4,5.5,2,6.5,5,4.5,4.5,9.2,2.8,9.5,7,6,4.2,2,7,5.5,5)/10)
+p_visita<-tibble(CLUB=sort(tab_pos$CLUB), `PUNTAJE VISITA`=c(9.2,7,3.5,4,5.5,2,6.5,5,4.5,4.5,9.2,2.8,9.5,7,6,4.2,2,7,5.5,5)/10)
 
 pp<-plyr::join_all(list(p_local,p_visita), by="CLUB", type = "inner") %>% as_tibble()
 
 pp %>% as_tibble() %>% gt() %>%
   gt_theme_espn() %>% 
-  tab_header(title = "ÍNDICE DE DESEMPEÑO DE LOCAL Y VISITANTE PARA CADA UNO DE LOS CLUBES", subtitle = "Puntajes según juicios de expertos")
+  tab_header(title = "ÍNDICE DE DESEMPEÑO DE LOCAL Y VISITANTE PARA CADA UNO DE LOS CLUBES", subtitle = "Puntajes según juicios de expertos") %>% 
+  gtsave(r"(C:\OTROS\premier-league-23-24-pronosticos\plots\desempeño_clubes.png)")
 
 #---------------------------------------------------------------------------------------
 # creando la Función que simule los resultados de los partidos. 
@@ -132,6 +139,7 @@ for (i in 1:repeticiones) {
 saveRDS(resul, "c:/pronabec/temp/simulaciones.rds")
 resul<-readRDS("c:/pronabec/temp/simulaciones.rds")
 
+# Save result
 
 resul %>% arrange(CLUB) %>% 
   ggplot(aes(x=PTS))+
@@ -205,11 +213,12 @@ resul %>% group_by(LOGO) %>% count(PUESTO) %>% mutate(p=n/10000) %>% select(-n) 
   fmt_percent(columns = matches("^PUES")) %>% fmt_missing(columns = matches("^PUES"), missing_text = "-") %>% 
   tab_header(title = "PROBABLIDADES POR PUESTO AL CULMINAR LA PREMIER LEAGUE.",
              subtitle = "Premier league 2023 - 2024.") %>% 
-  gt_theme_538() %>% gt_img_rows(columns = LOGO, height = 20) %>% 
+  gt_theme_538(quiet = TRUE) %>% gt_img_rows(columns = LOGO, height = 20) %>% 
   tab_source_note("ELABORACIÓN: https://github.com/CesarAHN") %>% 
   tab_style(style = list(cell_text(align = "center")),
             locations = list(cells_body(columns = c(paste0("PUESTO ",1:20))))) %>% 
-  gt_color_rows(`PUESTO 1`:`PUESTO 20`, palette = "RColorBrewer::RdBu")
+  gt_color_rows(`PUESTO 1`:`PUESTO 20`, palette = "RColorBrewer::RdBu") %>% 
+  gtsave(r"(C:\OTROS\premier-league-23-24-pronosticos\plots\probabilidades_clubes.png)", vwidth = 2000, vheight = 900)
 
 # Probabilidad de ganar la premier league.
 resul %>% mutate(clasificacion=case_when(PUESTO<=1~"SI",
@@ -225,7 +234,8 @@ resul %>% mutate(clasificacion=case_when(PUESTO<=1~"SI",
             locations = list(cells_column_labels(columns = c(NO,SI)))) %>%
   tab_style(style = list(cell_text(align = "center")),
             locations = list(cells_body(columns = c(NO,SI)))) %>% 
-  gt_color_rows(NO:SI, palette = "RColorBrewer::RdBu")
+  gt_color_rows(NO:SI, palette = "RColorBrewer::RdBu") %>% 
+  gtsave(r"(C:\OTROS\premier-league-23-24-pronosticos\plots\probabilidades_ganar_premier.png)", vwidth = 300, vheight = 900)
 
 # Probabilidad de clasificar a champions.
 resul %>% mutate(clasificacion=case_when(PUESTO<=4~"SI",
@@ -241,9 +251,10 @@ resul %>% mutate(clasificacion=case_when(PUESTO<=4~"SI",
             locations = list(cells_column_labels(columns = c(NO,SI)))) %>%
   tab_style(style = list(cell_text(align = "center")),
             locations = list(cells_body(columns = c(NO,SI)))) %>% 
-  gt_color_rows(NO:SI, palette = "RColorBrewer::RdBu")
+  gt_color_rows(NO:SI, palette = "RColorBrewer::RdBu") %>% 
+  gtsave(r"(C:\OTROS\premier-league-23-24-pronosticos\plots\probabilidades_clasificar_champions.png)", vwidth = 300, vheight = 1000)
 
-# Probabilidad de decenso
+# Probabilidad de descenso
 resul %>% mutate(clasificacion=case_when(PUESTO>=18~"SI",
                                          TRUE~"NO")) %>% group_by(LOGO) %>% 
   count(clasificacion) %>% mutate(p=n/10000) %>% select(-n) %>% 
@@ -257,4 +268,5 @@ resul %>% mutate(clasificacion=case_when(PUESTO>=18~"SI",
             locations = list(cells_column_labels(columns = c(NO,SI)))) %>%
   tab_style(style = list(cell_text(align = "center")),
             locations = list(cells_body(columns = c(NO,SI)))) %>% 
-  gt_color_rows(NO:SI, palette = "RColorBrewer::RdBu")
+  gt_color_rows(NO:SI, palette = "RColorBrewer::RdBu") %>% 
+  gtsave(r"(C:\OTROS\premier-league-23-24-pronosticos\plots\probabilidades_descenso.png)", vwidth = 300, vheight = 900)
