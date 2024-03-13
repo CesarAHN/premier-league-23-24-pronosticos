@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # BIENVENIDOS!!!
 
-Se crea este repertorio para poder determinar las probabilidades de ganar la premier, clasificar a champions league y descensos, para de cada uno de los clubes de la premier league. Para tal fin, primero se crea una función que permita calcular los resultados posibles de los partidos (goles a favor, goles en contra, diferencia de goles, puntos y puesto), desde la fecha actual `r Sys.Date()`.
+Se crea este repositorio para poder determinar las probabilidades de ganar la premier, clasificar a champions league y descensos, para de cada uno de los clubes de la premier league. Para tal fin, primero se crea una función que permita calcular los resultados posibles de los partidos (goles a favor, goles en contra, diferencia de goles, puntos y puesto), desde la fecha actual `r Sys.Date()`.
 
 A cada club se le asigna un score de local y de visita, de manera objetiva, por el momento el número está determinado por mi. Pero en futuras actualizaciones se puede implementar un modelo que realice esta asignación de puntajes en función a varios criterios, como el resultado en los últimos 5 partidos, el número de lesionados, el número de goles concedidos, entre otros. Este score, va de 0 a 1, mientras el score sea más alto se entiende que el club tiene más probabilidades de ganar.
 
@@ -24,7 +24,7 @@ Al final se calcula las probabilidades en función a los resultados posibles.
 
 USted encuentra todo el código en este repositorio, el archivo se llama **sc_premier_league.R**. El código está automatizado para que cada vez que termine una fecha usted pueda correr el código y obtener las probabilidades actualizadas. Así que si desea puede correrlo pasando la fecha 29 o la fecha 37, sin ningún problema.
 
-Asimismo, las imagenes que verán a continuación solo se irán actualizando cada vez que actualice el repertorio.
+Asimismo, las imagenes que verán a continuación solo se irán actualizando cada vez que actualice el repositorio.
 
 La primera versión del repositorio se publicó el 13 de Marzo del 2024, luego de la culminación de la fecha 28 del torneo.
 
@@ -110,7 +110,7 @@ En ese sentido los puntajes lo he asignado en función a mis conocimientos depor
 
 A continuación muestro el puntaje para cada una de los clubes y sus respectivos scores de visita y local.
 
-como se mencionó, previamente, los scores pueden ser determinados, a través, de un modelo que considere variables observables. Pero eso lo abordaremos en la siguiente actualización del repertorio.
+como se mencionó, previamente, los scores pueden ser determinados, a través, de un modelo que considere variables observables. Pero eso lo abordaremos en la siguiente actualización del repositorio.
 
 ```{r, echo=FALSE, cache=TRUE}
 #------------------------

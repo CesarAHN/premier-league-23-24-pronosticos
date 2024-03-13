@@ -3,7 +3,7 @@
 
 # BIENVENIDOS!!!
 
-Se crea este repertorio para poder determinar las probabilidades de
+Se crea este repositorio para poder determinar las probabilidades de
 ganar la premier, clasificar a champions league y descensos, para de
 cada uno de los clubes de la premier league. Para tal fin, primero se
 crea una función que permita calcular los resultados posibles de los
@@ -34,7 +34,7 @@ probabilidades actualizadas. Así que si desea puede correrlo pasando la
 fecha 29 o la fecha 37, sin ningún problema.
 
 Asimismo, las imagenes que verán a continuación solo se irán
-actualizando cada vez que actualice el repertorio.
+actualizando cada vez que actualice el repositorio.
 
 La primera versión del repositorio se publicó el 13 de Marzo del 2024,
 luego de la culminación de la fecha 28 del torneo.
@@ -113,7 +113,7 @@ respectivos scores de visita y local.
 
 como se mencionó, previamente, los scores pueden ser determinados, a
 través, de un modelo que considere variables observables. Pero eso lo
-abordaremos en la siguiente actualización del repertorio.
+abordaremos en la siguiente actualización del repositorio.
 
 ``` r
 pp %>% as_tibble() %>% gt() %>%
