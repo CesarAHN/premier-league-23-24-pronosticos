@@ -266,7 +266,7 @@ resul %>% arrange(CLUB) %>%
 
 Este gráfico muestra los posibles puestos que ocuparían los clubes al finalizar la liga. Por ejemplo, según la simulación, el Arsenal no quedaría por debajo del quinto puesto, y la probabilidad de quedar cuarto o quinto puesto es muy pero muy baja, con lo que se podría decir que el Arsenal ya aseguró su clasificación a la Champions League del 2024 - 2025.
 
-## Probabilidades de terminar en puestos de clasificación. 
+### Probabilidades al terminar la premier league 2023 - 2024.
 
 A continuación se muestra las probabilidades de los puestos tras la fecha 38 de cada uno de los clubes, es decir, al finalizar la premier league. 
 
@@ -315,7 +315,7 @@ resul %>% group_by(LOGO) %>% count(PUESTO) %>% mutate(p=n/10000) %>% select(-n) 
 El análisis se realiza por filas el cuál muestra las probabilidades de los clubes en ocupar cada uno de los determinados puestos. Por ejemplo, el Liverpool tiene la mayor probabilidad de quedar primer puesto, asimismo, el Tottenham, tiene la mayor probabilidad de quedar en 4 puesto. Estos resultados si se analizan a nivel de columnas nos da el club que tiene más probabilidades de quedar en un puesto determinado, por ejemplo, el puesto 8 es más probable que sea ocupado por el Chelsea.
 Si cree conveniente puede aumentar el tamaño del gráfico.
 
-## Probabilidades de ganar la premier league 2023 - 2024. 
+### Probabilidades de ganar la premier league 2023 - 2024. 
 
 ```{r, eval=FALSE}
 resul %>% mutate(clasificacion=case_when(PUESTO<=1~"SI",
@@ -339,7 +339,7 @@ resul %>% mutate(clasificacion=case_when(PUESTO<=1~"SI",
 
 El título de la premier league _matemáticamente_ aún es posible obtenerlo por 10 equipos. Pero, estadísticamente, solo es posible para 5 equipos: Liverpool, Arsenal, Manchester City, Tottenham y Aston Vila. Por lo cuál solo nos concentraremos en estos últimos, el Liverpool, lleva una ligera ventaja al resto de equipos, tiene 7% más probabilidades de ganar la premier league que el Arsenal y 12% más probabilidades que el Manchester City. Asimismo, podemos ver que el Tottenham y el Aston Vila tienen ligeras posibilidades de ganar la premier league, pero esto es casi imposible. 
 
-## Probabilidad de clasificar a champions league 2024 - 2025.
+### Probabilidad de clasificar a champions league 2024 - 2025.
 
 ```{r, eval=FALSE}
 resul %>% mutate(clasificacion=case_when(PUESTO<=4~"SI",
@@ -364,7 +364,7 @@ A la fecha, estadísticamente, hay 10 clubes que tienen la posibilidad de clasif
 
 El Tottenham va a la cabeza por hacerse del 4 cupo con 9% más probabilidades que el Aston Vila. Si no hay sobresaltos en la liga, el cuarto cupo será ocupado por uno de estos dos clubes. Desde el Manchester United para abajo, solo ocuparán ese 4 cupo, si pasan cosas muy extrañas. 
 
-## Probabilidad de descender a la championship.
+### Probabilidad de descender a la championship.
 
 ```{r, eval=FALSE}
 resul %>% mutate(clasificacion=case_when(PUESTO>=18~"SI",

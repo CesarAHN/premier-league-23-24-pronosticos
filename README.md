@@ -242,7 +242,7 @@ cuarto o quinto puesto es muy pero muy baja, con lo que se podría decir
 que el Arsenal ya aseguró su clasificación a la Champions League del
 2024 - 2025.
 
-## Probabilidades de terminar en puestos de clasificación.
+### Probabilidades al terminar la premier league 2023 - 2024.
 
 A continuación se muestra las probabilidades de los puestos tras la
 fecha 38 de cada uno de los clubes, es decir, al finalizar la premier
@@ -275,7 +275,7 @@ club que tiene más probabilidades de quedar en un puesto determinado,
 por ejemplo, el puesto 8 es más probable que sea ocupado por el Chelsea.
 Si cree conveniente puede aumentar el tamaño del gráfico.
 
-## Probabilidades de ganar la premier league 2023 - 2024.
+### Probabilidades de ganar la premier league 2023 - 2024.
 
 ``` r
 resul %>% mutate(clasificacion=case_when(PUESTO<=1~"SI",
@@ -308,7 +308,7 @@ probabilidades que el Manchester City. Asimismo, podemos ver que el
 Tottenham y el Aston Vila tienen ligeras posibilidades de ganar la
 premier league, pero esto es casi imposible.
 
-## Probabilidad de clasificar a champions league 2024 - 2025.
+### Probabilidad de clasificar a champions league 2024 - 2025.
 
 ``` r
 resul %>% mutate(clasificacion=case_when(PUESTO<=4~"SI",
@@ -345,7 +345,7 @@ cuarto cupo será ocupado por uno de estos dos clubes. Desde el
 Manchester United para abajo, solo ocuparán ese 4 cupo, si pasan cosas
 muy extrañas.
 
-## Probabilidad de descender a la championship.
+### Probabilidad de descender a la championship.
 
 ``` r
 resul %>% mutate(clasificacion=case_when(PUESTO>=18~"SI",
