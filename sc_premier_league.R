@@ -136,8 +136,8 @@ for (i in 1:repeticiones) {
 }
 
 
-saveRDS(resul, "c:/pronabec/temp/simulaciones.rds")
-resul<-readRDS("c:/pronabec/temp/simulaciones.rds")
+saveRDS(resul, "simulaciones.rds")
+resul<-readRDS("simulaciones.rds")
 
 # Save result
 
